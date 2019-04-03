@@ -7,6 +7,7 @@ public class Interface {
 
     // Main function for running
     public static void main(String[] args) {
+
         // Initialising sudoku
         System.out.print("Enter the sudoku size... ");
             // Asserting that puzzle be square
@@ -23,10 +24,20 @@ public class Interface {
             System.out.print("Please enter a perfect-square for size... ");
         }
         Sudoku s = new Sudoku(size);
+
         // Starting Designing Sequence
         startDesign(s);
+
         // Verifying the present design of Sudoku (with rules)
         verifyDesign(s);
+
+        // After verification is complete, try solving the puzzle
+        // try {
+            Solver.solveSudoku(s);
+        // }
+        // catch(Exception e) {
+
+        // }
     }
 
     // DESIGNING STAGE
@@ -34,8 +45,8 @@ public class Interface {
     private static void startDesign(Sudoku s) {
         boolean pl = true;   // Signifying the permanent nature of placement
         String l = "-------------------------------------------------------";
-        System.out.println(l+"\nEnter the coordinates of blocks and their set value : [x y n_val]\n"+l+"\nEnter (-1) to exit.\n"+l+"\n");
-        in.nextLine();
+        System.out.println(l+"\nEnter the coordinates of blocks and their set value : [x] [y] [val]\n"+l+"\nEnter (-1) to exit.\n"+l+"\n");
+        in.nextLine();  // Redundant line to capture 'Enter' key from above
         // Loop for getting values
         while(true) {
             try {
@@ -48,10 +59,10 @@ public class Interface {
                 if(param[0].equals("-1"))
                     break;
                 // Setting the value
-                Designer.addPlace(s, Integer.valueOf(param[0]), Integer.valueOf(param[1]), Integer.valueOf(param[2]), pl);
+                Designer.addPlace(s, Integer.valueOf(param[0])-1, Integer.valueOf(param[1])-1, Integer.valueOf(param[2]), pl);
             }
             catch(ArrayIndexOutOfBoundsException e) {
-                System.out.println("Please enter complete arguments of the form : [x y n_val] [Interface.startDesign]");
+                System.out.println("Please enter complete arguments of the form : [x] [y] [val] [Interface.startDesign]");
             }
             catch(Exception e) {
                 System.out.println(e.getMessage() + " [Interface.startDesign]");

@@ -13,11 +13,11 @@ public class Designer {
     */
     public static void addPlace(Sudoku s, int x, int y, int new_val, boolean permanent) {
         try {
-            if(s.set()[y-1][x-1] == true)
+            if(s.set()[y][x] == true)
                 throw new IllegalArgumentException("The value is already set. Cannot reset. [Designer.addPlace]");
             assert(new_val > 0 && new_val <= s.size());
-            s.grid()[y-1][x-1] = new_val;
-            s.set()[y-1][x-1] = permanent;
+            s.grid()[y][x] = new_val;
+            s.set()[y][x] = permanent;
             s.CLI_Draw();
         }
         catch(IllegalArgumentException e) {
