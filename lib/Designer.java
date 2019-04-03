@@ -44,7 +44,7 @@ public class Designer {
         StdDraw.setCanvasSize(900, 900);
         StdDraw.setXscale(-1, size+1);
         StdDraw.setYscale(-1, size+1);
-        StdDraw.clear(StdDraw.WHITE);
+        StdDraw.clear(StdDraw.BLACK);
         StdDraw.setFont(new Font("ARIAL", Font.PLAIN, 35));
         StdDraw.setPenRadius(0.001);
         GUI_draw(s);
@@ -56,9 +56,9 @@ public class Designer {
         for(int i=0; i<size; i++)
             for(int j=0; j<size; j++) {
                 StdDraw.setPenColor(StdDraw.WHITE);
-                StdDraw.filledSquare(i+0.5, j+0.5, 0.5);
+                StdDraw.filledCircle(i+0.5, j+0.5, 0.5);
                 StdDraw.setPenColor(StdDraw.BLACK);
-                StdDraw.square(i+0.5, j+0.5, 0.5);
+                StdDraw.circle(i+0.5, j+0.5, 0.5);
                 if(s.set()[j][i])
                     StdDraw.setPenColor(StdDraw.RED);
                 else
@@ -71,9 +71,9 @@ public class Designer {
     public static void GUI_draw(Sudoku s, int i, int j) {
         StdDraw.disableDoubleBuffering();
         StdDraw.setPenColor(StdDraw.WHITE);
-        StdDraw.filledSquare(i+0.5, j+0.5, 0.5);
+        StdDraw.filledCircle(i+0.5, j+0.5, 0.5);
         StdDraw.setPenColor(StdDraw.BLACK);
-        StdDraw.square(i+0.5, j+0.5, 0.5);
+        StdDraw.circle(i+0.5, j+0.5, 0.5);
         if(s.set()[j][i])
             StdDraw.setPenColor(StdDraw.RED);
         else
