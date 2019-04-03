@@ -1,4 +1,3 @@
-import edu.princeton.cs.algs4.StdDraw;
 import java.awt.Font;
 
 // Class with static functions for designing the Sudoku (before solving)
@@ -23,7 +22,7 @@ public class Designer {
             if(cli)
                 s.CLI_Draw();
             else
-                GUI_draw(s);
+                GUI_draw(s, x, y);
         }
         catch(IllegalArgumentException e) {
             System.out.println(e.getMessage() + "[Designer.addPlace]");
@@ -68,6 +67,20 @@ public class Designer {
                     StdDraw.text(i+0.5, j+0.5, String.valueOf(s.grid()[j][i]));
             }
         StdDraw.show();
+    }
+    public static void GUI_draw(Sudoku s, int i, int j) {
+        StdDraw.disableDoubleBuffering();
+        StdDraw.setPenColor(StdDraw.WHITE);
+        StdDraw.filledSquare(i+0.5, j+0.5, 0.5);
+        StdDraw.setPenColor(StdDraw.BLACK);
+        StdDraw.square(i+0.5, j+0.5, 0.5);
+        if(s.set()[j][i])
+            StdDraw.setPenColor(StdDraw.RED);
+        else
+            StdDraw.setPenColor(StdDraw.BLUE);
+        if(s.grid()[j][i] != 0)
+            StdDraw.text(i+0.5, j+0.5, String.valueOf(s.grid()[j][i]));
+        StdDraw.enableDoubleBuffering();
     }
 
     /* Printing the instructions for Simulation (GUI) */

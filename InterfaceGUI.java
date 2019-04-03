@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import edu.princeton.cs.algs4.StdDraw;
 import java.awt.event.KeyEvent;
 
 // Main interface for using all other classes to solve sudoku
@@ -90,7 +89,7 @@ public class InterfaceGUI {
                         try {
                             s.grid()[ym][xm] = 0;
                             s.set()[ym][xm] = false;
-                            Designer.GUI_draw(s);
+                            Designer.GUI_draw(s, xm, ym);
                         }
                         catch(Exception e) {
                             System.out.println("Minor Exception : [InterfaceGUI.startDesign]");
@@ -105,6 +104,7 @@ public class InterfaceGUI {
                 System.out.println(e.getMessage() + " [InterfaceGUI.startDesign]");
             }
         }
+        Designer.GUI_draw(s);
     }
 
     // Darkening the box in focus

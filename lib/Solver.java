@@ -39,12 +39,6 @@ public class Solver {
             resetLast();
             return;
         }
-        // Slowing for visual (GUI)
-        // if(!Designer.cli)
-        //     try {
-        //         Thread.sleep(50);
-        //     }
-        //     catch(Exception e){}
         // Not possible to place
         int pos = v.indexOf(tag);
         if(pos == v.size()-1) {
