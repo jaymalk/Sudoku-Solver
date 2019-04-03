@@ -21,6 +21,7 @@ public class Solver {
             if(y >= size)
                 break;
             step();
+            Designer.GUI_draw(s, x, y);
         }
     }
 

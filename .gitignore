@@ -1,2 +1,4 @@
 # Java Classes
 *.class
+# VS Code
+.vscode/*
