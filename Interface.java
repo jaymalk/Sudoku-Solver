@@ -7,6 +7,8 @@ public class Interface {
 
     // Main function for running
     public static void main(String[] args) {
+        // Clearing the screen
+        System.out.print("\033[H\033[J");
 
         // Initialising sudoku
         System.out.print("Enter the sudoku size... ");
@@ -24,6 +26,9 @@ public class Interface {
             System.out.print("Please enter a perfect-square for size... ");
         }
         Sudoku s = new Sudoku(size);
+
+        // Clearing the screen
+        System.out.print("\033[H\033[J");
 
         // Starting Designing Sequence
         startDesign(s);
