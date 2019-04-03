@@ -110,10 +110,8 @@ public class InterfaceGUI {
     // Darkening the box in focus
     public static void darken(int xm, int ym) {
         StdDraw.disableDoubleBuffering();
-        StdDraw.setPenRadius(0.005);
         StdDraw.setPenColor(StdDraw.RED);
         StdDraw.circle(xm+0.5, ym+0.5, 0.5);
-        StdDraw.setPenRadius(0.001);
         StdDraw.enableDoubleBuffering();
     }
 

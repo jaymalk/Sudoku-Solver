@@ -1,4 +1,5 @@
 import java.awt.Font;
+import java.awt.Color;
 
 // Class with static functions for designing the Sudoku (before solving)
 public class Designer {
@@ -55,14 +56,14 @@ public class Designer {
         int size = s.size();
         for(int i=0; i<size; i++)
             for(int j=0; j<size; j++) {
-                StdDraw.setPenColor(StdDraw.WHITE);
+                if(s.set()[j][i])
+                    StdDraw.setPenColor(new Color(150, 0, 75));
+                else
+                    StdDraw.setPenColor(new Color(75, 0, 150));
                 StdDraw.filledCircle(i+0.5, j+0.5, 0.5);
                 StdDraw.setPenColor(StdDraw.BLACK);
                 StdDraw.circle(i+0.5, j+0.5, 0.5);
-                if(s.set()[j][i])
-                    StdDraw.setPenColor(StdDraw.RED);
-                else
-                    StdDraw.setPenColor(StdDraw.BLUE);
+                StdDraw.setPenColor(StdDraw.WHITE);
                 if(s.grid()[j][i] != 0)
                     StdDraw.text(i+0.5, j+0.5, String.valueOf(s.grid()[j][i]));
             }
@@ -70,14 +71,14 @@ public class Designer {
     }
     public static void GUI_draw(Sudoku s, int i, int j) {
         StdDraw.disableDoubleBuffering();
-        StdDraw.setPenColor(StdDraw.WHITE);
+        if(s.set()[j][i])
+            StdDraw.setPenColor(new Color(150, 0, 75));
+        else
+            StdDraw.setPenColor(new Color(75, 0, 150));
         StdDraw.filledCircle(i+0.5, j+0.5, 0.5);
         StdDraw.setPenColor(StdDraw.BLACK);
         StdDraw.circle(i+0.5, j+0.5, 0.5);
-        if(s.set()[j][i])
-            StdDraw.setPenColor(StdDraw.RED);
-        else
-            StdDraw.setPenColor(StdDraw.BLUE);
+        StdDraw.setPenColor(StdDraw.WHITE);
         if(s.grid()[j][i] != 0)
             StdDraw.text(i+0.5, j+0.5, String.valueOf(s.grid()[j][i]));
         StdDraw.enableDoubleBuffering();
