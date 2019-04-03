@@ -31,6 +31,7 @@ public class Sudoku {
 
     // Draw sudoku on the terminal
     public void CLI_Draw() {
+        System.out.print("\033[H\033[J");
         for(int[] a : grid) {
             for(int b : a)
                 if(b == 0)
