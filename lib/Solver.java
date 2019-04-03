@@ -40,10 +40,10 @@ public class Solver {
             return;
         }
         // Slowing for visual
-        try {
-            Thread.sleep(50);
-        }
-        catch(Exception e){}
+        // try {
+        //     Thread.sleep(50);
+        // }
+        // catch(Exception e){}
         // Not possible to place
         int pos = v.indexOf(tag);
         if(pos == v.size()-1) {
