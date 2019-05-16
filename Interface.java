@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Vector;
 
 // Main interface for using all other classes to solve sudoku
 public class Interface {
@@ -12,16 +13,16 @@ public class Interface {
 
         // Initialising sudoku
         System.out.print("Enter the sudoku size... ");
-            // Asserting that puzzle be square
+        // Asserting that puzzle be square
         int size = 0;
-        while(true) {
+        while (true) {
             size = in.nextInt();
-            if(size <= 0) {
+            if (size <= 0) {
                 System.out.println("Invalid size. Exiting. [Interface.main]");
                 System.exit(0);
             }
-            int sq = (int)Math.sqrt(size);
-            if(sq*sq == size)
+            int sq = (int) Math.sqrt(size);
+            if (sq * sq == size)
                 break;
             System.out.print("Please enter a perfect-square for size... ");
         }
@@ -38,7 +39,7 @@ public class Interface {
 
         // After verification is complete, try solving the puzzle
         // try {
-            Solver.solveSudoku(s);
+        Solver.solveSudoku(s);
         // }
         // catch(Exception e) {
 
@@ -48,12 +49,13 @@ public class Interface {
     // DESIGNING STAGE
     // Function for designing the sudoku
     private static void startDesign(Sudoku s) {
-        boolean pl = true;   // Signifying the permanent nature of placement
+        boolean pl = true; // Signifying the permanent nature of placement
         String l = "-------------------------------------------------------";
-        System.out.println(l+"\nEnter the coordinates of blocks and their set value : [x] [y] [val]\n"+l+"\nEnter (-1) to exit.\n"+l+"\n");
-        in.nextLine();  // Redundant line to capture 'Enter' key from above
+        System.out.println(l + "\nEnter the coordinates of blocks and their set value : [x] [y] [val]\n" + l
+                + "\nEnter (-1) to exit.\n" + l + "\n");
+        in.nextLine(); // Redundant line to capture 'Enter' key from above
         // Loop for getting values
-        while(true) {
+        while (true) {
             try {
                 // Getting the information
                 System.out.print("Enter.. ");
@@ -61,15 +63,15 @@ public class Interface {
                 // Processing the information
                 String[] param = line.split(" ");
                 // Exit string
-                if(param[0].equals("-1"))
+                if (param[0].equals("-1"))
                     break;
                 // Setting the value
-                Designer.addPlace(s, Integer.valueOf(param[0])-1, Integer.valueOf(param[1])-1, Integer.valueOf(param[2]), pl);
-            }
-            catch(ArrayIndexOutOfBoundsException e) {
-                System.out.println("Please enter complete arguments of the form : [x] [y] [val] [Interface.startDesign]");
-            }
-            catch(Exception e) {
+                Designer.addPlace(s, Integer.valueOf(param[0]) - 1, Integer.valueOf(param[1]) - 1,
+                        Integer.valueOf(param[2]), pl);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out
+                        .println("Please enter complete arguments of the form : [x] [y] [val] [Interface.startDesign]");
+            } catch (Exception e) {
                 System.out.println(e.getMessage() + " [Interface.startDesign]");
             }
         }
@@ -78,56 +80,61 @@ public class Interface {
     // VERIFICATION STAGE
     // Function for verifying the design of Sudoku
     private static void verifyDesign(Sudoku s) {
-        verifyRows(s, 1); // Rows
-        verifyRows(s, 0);   // Columns
-        int val = (int)Math.sqrt(s.size());
-        for(int i=0; i<val; i++)
-            for(int j=0; j<val; j++)
-                verifyBlock(s, i, j);
-    }
-    // Function for veryfying the validity of rows
-    private static void verifyRows(Sudoku s, int HorV) {
-        try {
-            for(int i=0; i<s.size(); i++) {
-                int[] set = new int[s.size()];
-                for(int j=0; j<s.size(); j++) {
-                    int val = 0;
-                    if(HorV != 0)
-                        val = s.grid()[j][i];
-                    else
-                        val = s.grid()[i][j];
-                    if(val == 0)
-                        continue;
-                    else if (set[val-1] == 0)
-                        set[val-1] = 1;
-                    else if (set[val-1] == 1)
-                        throw new Exception("Multiple values in a column/row ("+i+", "+j+"). Invalid Puzzle. Exiting. [Interface.verifyRows]");
-                }
+        // New verification design focused on individual objects
+        for (int i = 0; i < s.size(); i++) {
+            for (int j = 0; j < s.size(); j++) {
+                verfifyCell(s, i, j);
             }
         }
-        catch(Exception e) {
-            System.out.println(e.getMessage());
-            System.exit(0);
-        }
     }
-    // Function for verification of Blocks
-    private static void verifyBlock(Sudoku s, int x, int y) {
+
+    // Function for verifying a cell's validity
+    private static void verfifyCell(Sudoku s, int i, int j) {
         try {
-            int sq = (int)Math.sqrt(s.size());
-            int[] set = new int[s.size()];
-            for(int i=x*sq; i<(x+1)*sq; i++)
-                for(int j=y*sq; j<(y+1)*sq; j++) {
-                    int val = s.grid()[j][i];
-                    if(val == 0)
-                        continue;
-                    else if (set[val-1] == 0)
-                        set[val-1] = 1;
-                    else if (set[val-1] == 1)
-                        throw new Exception("Multiple values in a block ("+i+", "+j+"). Invalid Puzzle. Exiting. [Interface.verifyRows]");
+            // Temporarily assigning the value 0
+            int temp = s.grid()[i][j];
+            s.grid()[i][j] = 0;
+            // Creating a vector of all possible values
+            Vector<Integer> v = new Vector<>();
+            for (int k = 0; k < s.size(); k++)
+                v.addElement(k + 1);
+            // Removing common values from row and column
+            for (int k = 0; k < s.size(); k++) {
+                int v1 = s.grid()[k][j];
+                int v2 = s.grid()[i][k];
+                if (v1 != 0)
+                    if (v.indexOf(v1) != -1) {
+                        v.removeElement(v1);
+                    }
+                if (v2 != 0)
+                    if (v.indexOf(v2) != -1) {
+                        v.removeElement(v2);
+                    }
+            }
+            // Removing common values in the block
+            int sq = (int) Math.sqrt(s.size());
+            int x = (int) i / sq;
+            int y = (int) j / sq;
+            for (int k = x * sq; k < (x + 1) * sq; k++)
+                for (int l = y * sq; l < (y + 1) * sq; l++) {
+                    int vn = s.grid()[k][l];
+                    if (vn != 0)
+                        if (v.indexOf(vn) != -1)
+                            v.removeElement(vn);
                 }
-        }
-        catch(Exception e) {
-            System.out.println(e.getMessage());
+            // Reassigning old value
+            s.grid()[i][j] = temp;
+            // Checking if any value is possible to be set
+            if (v.size() == 0)
+                throw new Exception("No possible value for block (" + j + ", " + i + "). Invalid Puzzle. Exiting.");
+            // Checking if assigned value is allowed
+            if (temp != 0)
+                if (v.indexOf(temp) == -1)
+                    throw new Exception("Current value already used (" + j + ", " + i + "). Invalid Puzzle. Exiting.");
+        } catch (Exception e) {
+            // throw e;
+            System.out.println(e.getMessage() + " [InterfaceGUI.verifyCell]");
+            s.CLI_Draw();
             System.exit(0);
         }
     }
