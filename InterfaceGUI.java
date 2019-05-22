@@ -161,15 +161,16 @@ public class InterfaceGUI {
             s.grid()[i][j] = temp;
             // Checking if any value is possible to be set
             if (v.size() == 0)
-                throw new Exception("No possible value for block (" + j + ", " + i + "). Invalid Puzzle. Exiting.");
+                throw new Exception("No possible value for block (" + (j+1) + ", " + (i+1) + "). Invalid Puzzle. Exiting.");
             // Checking if assigned value is allowed
             if (temp != 0)
                 if (v.indexOf(temp) == -1)
-                    throw new Exception("Current value already used (" + j + ", " + i + "). Invalid Puzzle. Exiting.");
+                    throw new Exception("Current value already used (" + (j+1) + ", " + (i+1) + "). Invalid Puzzle. Exiting.");
         } catch (Exception e) {
             // throw e;
-            System.out.println(e.getMessage() + " [InterfaceGUI.verifyCell]");
             s.CLI_Draw();
+            System.out.println(e.getMessage() + " [InterfaceGUI.verifyCell]");
+            System.out.flush();
             System.exit(0);
         }
     }
@@ -179,6 +180,7 @@ public class InterfaceGUI {
         try {
             Thread.sleep(t);
         } catch (Exception e) {
+            System.out.println("Thread error [InterfaceGUI.sleep]");
         }
     }
 }
